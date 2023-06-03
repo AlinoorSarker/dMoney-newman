@@ -1,23 +1,30 @@
 # dMoney-newman
-## project summary 
+## Project summary 
 This project automate user API from postman using newman
-##technology
--postman
--newman
-##testcase
+## Technology
+- postman
+- newman
+## Testcase
 <link>
-##pre requisite
+
+## Pre requisite
 node JS
-##how to run
---git clone--
---npm i--
---git test--
+
+## How to run
+- git clone 
+- npm i 
+- git test 
 
 a report will be generate in your project source root
-##Test Case
+## Test Case
 <link>
-##Bug report
-##API document
+
+## Bug report
+
+<link>
+
+## API document
+
 <link>
 
 
