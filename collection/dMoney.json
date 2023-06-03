@@ -1,0 +1,1280 @@
+{
+	"info": {
+		"_postman_id": "e51947a0-058b-411e-b2b8-a6dbb95f8c97",
+		"name": "Dmoney-Trnx-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4637629"
+	},
+	"item": [
+		{
+			"name": "User can do login successfully Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response=pm.response.json();\r",
+							"pm.collectionVariables.set(\"token\",response.token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).contains(\"Login successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"admin1@roadtocareer.net\",\r\n    \"password\":\"1234\"\r\n}  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/user/login",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.message  ).contains(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Auth-Secret-Key",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/list",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.message  ).contains(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var ramdomId = _.random(1000000, 9999999)\r",
+							"var prefixPhoneNumber = \"0151\" + ramdomId;\r",
+							"\r",
+							"pm.collectionVariables.set(\"phoneNumber\",prefixPhoneNumber );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Auth-Secret-Key",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"password\":\"1234\",\r\n    \"phone_number\":\"{{phoneNumber}}\",\r\n    \"nid\":\"123456789\",\r\n    \"role\":\"Customer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/user/create",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"token\", response.token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).contains(\"Login successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"salman@grr\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/user/search/id/16411",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"user",
+						"search",
+						"id",
+						"16411"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"verifying id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.users[0].id).to.eql(1233);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"verifying id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.users[3237-1].id).to.eql(12827);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var ramdomId = _.random(1000000, 9999999)\r",
+							"var prefixPhoneNumber = \"0151\" + ramdomId;\r",
+							"\r",
+							"pm.collectionVariables.set(\"phoneNumber\",prefixPhoneNumber );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Auth-Secret-Key",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"password\":\"1234\",\r\n    \"phone_number\":\"{{phoneNumber}}\",\r\n    \"nid\":\"123456789\",\r\n    \"role\":\"Agent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/user/create",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit to Agent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"user availability\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).contains(\"User found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"from_account\": \"SYSTEM\",\r\n\"to_account\": \"01507692843\",\r\n    \"amount\":500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/deposit",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check agent balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user_id\",jsonData.user.id);\r",
+							"\r",
+							"// pm.test(\"user availability\", function () {\r",
+							"//     var jsonData = pm.response.json();\r",
+							"//     pm.expect(jsonData.message).contains(\"User found\");\r",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomId = _.random(1000000, 9999999);\r",
+							"\r",
+							"var prefixPhoneNnumber = \"0151\"+ randomId;\r",
+							" \r",
+							"pm.collectionVariables.set(\"phoneNumber\", prefixPhoneNnumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"password\":\"1234\",\r\n    \"phone_number\":\"{{phoneNumber}}\",\r\n    \"nid\":\"123456789\",\r\n    \"role\":\"Customer\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/balance/01708150709",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"balance",
+						"01708150709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check agent statement",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user_id\",jsonData.user.id);\r",
+							"\r",
+							"// pm.test(\"user availability\", function () {\r",
+							"//     var jsonData = pm.response.json();\r",
+							"//     pm.expect(jsonData.message).contains(\"User found\");\r",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomId = _.random(1000000, 9999999);\r",
+							"\r",
+							"var prefixPhoneNnumber = \"0151\"+ randomId;\r",
+							" \r",
+							"pm.collectionVariables.set(\"phoneNumber\", prefixPhoneNnumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"password\":\"1234\",\r\n    \"phone_number\":\"{{phoneNumber}}\",\r\n    \"nid\":\"123456789\",\r\n    \"role\":\"Customer\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/statement/01708150709",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"statement",
+						"01708150709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by trnx Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"user availability\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).contains(\"User found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/search/TXN742677",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"search",
+						"TXN742677"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check system balance",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomId = _.random(1000000, 9999999);\r",
+							"\r",
+							"var prefixPhoneNnumber = \"0151\"+ randomId;\r",
+							" \r",
+							"pm.collectionVariables.set(\"phoneNumber\", prefixPhoneNnumber);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User updated\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/balance/SYSTEM",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"balance",
+						"SYSTEM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit to Customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User updated\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"from_account\":\"01708613452\",\r\n    \"to_account\":\"01507692843\",\r\n    \"amount\":1000\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/deposit",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Limit",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/limit/01503805239",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"limit",
+						"01503805239"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check customer statement",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/statement/01503805239",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"statement",
+						"01503805239"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check customer balance",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/balance/01503805239",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"balance",
+						"01503805239"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Money withdraw by customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"from_account\":\"01503805239\",\r\n    \"to_account\":\"01708150709\",\r\n    \"amount\":50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/withdraw",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payment by customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"from_account\":\"01708150709\",\r\n    \"to_account\":\"01686606905\",\r\n    \"amount\":20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/payment",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check merchant balance",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/balance/01686606905",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"balance",
+						"01686606905"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send money by newly created customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updating user\", function(){\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).contains(\"User deleted successfully\"); \r",
+							"}); \r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// pm.collectionVariables.set(\"user_id\",jsonData.user.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTH-SECRET-KEY",
+						"value": "{{SecretKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"from_account\":\"01503805239\",\r\n    \"to_account\":\"01708150709\",\r\n    \"amount\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base URL}}/transaction/sendmoney\n",
+					"host": [
+						"{{base URL}}"
+					],
+					"path": [
+						"transaction",
+						"sendmoney\n"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base URL",
+			"value": "http://dmoney.roadtocareer.net",
+			"type": "string"
+		},
+		{
+			"key": "phoneNumber",
+			"value": "01514596748"
+		},
+		{
+			"key": "user_id",
+			"value": 12319
+		},
+		{
+			"key": "SecretKey",
+			"value": "ROADTOSDET",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
