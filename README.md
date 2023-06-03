@@ -27,5 +27,5 @@ a report will be generate in your project source root
 
 <link>
 
-## Reportgit
+## Report
 
