@@ -6,7 +6,7 @@ This project automate user API from postman using newman
 - newman
 
 ## Pre requisite
-node JS
+Node JS, Javascript
 
 ## How to run
 - git clone 
