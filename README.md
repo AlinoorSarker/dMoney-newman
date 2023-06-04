@@ -4,8 +4,6 @@ This project automate user API from postman using newman
 ## Technology
 - postman
 - newman
-## Testcase
-<link>
 
 ## Pre requisite
 node JS
@@ -16,12 +14,13 @@ node JS
 - git test 
 
 a report will be generate in your project source root
+
 ## Test Case
 https://docs.google.com/spreadsheets/d/123FBpdtFwtkBoZPHfUy8xioYb7cxEnUUJh-ne2jCFdY/edit?usp=sharing
 
 ## Bug report
 
-<link>
+https://docs.google.com/spreadsheets/d/163PkhlmDHNSWtnsG-427GFdxtrbgRoEgoaE6jkPtdp8/edit?usp=sharing
 
 ## API document
 
